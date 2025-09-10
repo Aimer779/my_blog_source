@@ -6,7 +6,7 @@
   <link href="https://aimer779.github.io/my_blog_source/atom.xml" rel="self"/>
   
   <link href="https://aimer779.github.io/my_blog_source/"/>
-  <updated>2025-07-17T13:36:29.944Z</updated>
+  <updated>2025-09-10T08:53:39.341Z</updated>
   <id>https://aimer779.github.io/my_blog_source/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker Desktop安装和迁移</title>
+    <link href="https://aimer779.github.io/my_blog_source/2025/09/10/Docker-Desktop%E5%AE%89%E8%A3%85%E5%92%8C%E8%BF%81%E7%A7%BB/"/>
+    <id>https://aimer779.github.io/my_blog_source/2025/09/10/Docker-Desktop%E5%AE%89%E8%A3%85%E5%92%8C%E8%BF%81%E7%A7%BB/</id>
+    <published>2025-09-10T08:53:22.000Z</published>
+    <updated>2025-09-10T08:53:39.341Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h1&gt;&lt;p&gt;在国内Docker Desktop</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>被AI外包的思考</title>
