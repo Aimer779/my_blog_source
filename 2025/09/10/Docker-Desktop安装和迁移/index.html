@@ -1,6 +1,65 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author"><title>Docker Desktop安装和迁移 · Hexo</title><meta name="description" content="下载在国内Docker Desktop 官方安装包下载速度缓慢，国内镜像站或一些网盘中的安装包并不是最新版本，踩坑下了一个镜像站的安装包版本太旧，捣鼓半天，运行不了，最后去官网下了最新版，慢就慢吧，起码能用如果你的处理器是Intel &amp;#x2F; AMD 的 就下 Download for Wind"><meta name="og:description" content="下载在国内Docker Desktop 官方安装包下载速度缓慢，国内镜像站或一些网盘中的安装包并不是最新版本，踩坑下了一个镜像站的安装包版本太旧，捣鼓半天，运行不了，最后去官网下了最新版，慢就慢吧，起码能用如果你的处理器是Intel &amp;#x2F; AMD 的 就下 Download for Wind"><meta name="twitter:site" content="Hexo"><meta name="twitter:title" content="Docker Desktop安装和迁移"><meta name="twitter:card" content="summary"><meta name="keywords" content=""><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/my_blog_source/css/bootstrap.min.css"><link rel="stylesheet" href="/my_blog_source/css/font-awesome.min.css"><link rel="stylesheet" href="/my_blog_source/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/my_blog_source/css/prism.css" type="text/css">
-<link rel="stylesheet" href="/my_blog_source/css/prism-line-numbers.css" type="text/css"></head><body><div class="container" id="stage"><div class="row"><div class="col-sm-3 col-xs-12 side-container invisible" id="side-bar"><div class="vertical-text site-title"><h3 class="site-title-small" tabindex="-1"><a class="a-title" href="/my_blog_source/">Infinity</a></h3><h1 class="site-title-large" tabindex="-1"><a class="a-title" href="/my_blog_source/">无限进步</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div class="site-title-links" id="site-nav"><ul><li><a href="/my_blog_source/">Home</a></li><li><a href="/my_blog_source/archives">Archive</a></li><li class="soc"><a href="https://github.com/Aimer779" target="_blank" rel="noopener noreferrer" aria-label="Github"><i class="fa fa-github">&nbsp;</i></a><a href="https://aimer779.github.io/my_blog_source/atom.xml" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2025&nbsp;<a target="_blank" href="https://aimer779.github.io/my_blog_source" rel="noopener noreferrer">Max</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div class="col-sm-9 col-xs-12 main-container invisible" id="main-container"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Docker Desktop安装和迁移</a></p><p class="post-meta"><span class="date meta-item">Posted at&nbsp;2025-09-10</span></p><p class="post-abstract"><h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>在国内Docker Desktop 官方安装包下载速度缓慢，国内镜像站或一些网盘中的安装包并不是最新版本，踩坑下了一个镜像站的安装包版本太旧，捣鼓半天，运行不了，最后去官网下了最新版，慢就慢吧，起码能用<br>如果你的处理器是Intel &#x2F; AMD 的 就下 <strong>Download for Windows - AMD64</strong><br>大概500多MB<br>官方链接：<strong><a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">https://www.docker.com/products/docker-desktop/</a></strong><br>官方文档：<strong><a target="_blank" rel="noopener" href="https://docs.docker.com/">https://docs.docker.com/</a></strong></p>
-<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="启用-WSL2和虚拟化平台"><a href="#启用-WSL2和虚拟化平台" class="headerlink" title="启用 WSL2和虚拟化平台"></a>启用 WSL2和虚拟化平台</h2><ol>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author"><title>Docker Desktop安装和迁移 · Hexo</title><meta name="description" content="下载
+准备工作
+启用 WSL2和虚拟化平台
+
+
+安装和配置
+安装
+配置国内镜像源
+
+
+验证正常使用
+数据迁移
+其他问题
+
+
+
+
+
+下载在国内Docker Desktop 官方安装包下载速度缓慢，国内镜像站或一些网盘中的安装包并不是最新版本，踩坑下了一个镜像站的安装包版本太旧，捣鼓半天，运行不了，最后"><meta name="og:description" content="下载
+准备工作
+启用 WSL2和虚拟化平台
+
+
+安装和配置
+安装
+配置国内镜像源
+
+
+验证正常使用
+数据迁移
+其他问题
+
+
+
+
+
+下载在国内Docker Desktop 官方安装包下载速度缓慢，国内镜像站或一些网盘中的安装包并不是最新版本，踩坑下了一个镜像站的安装包版本太旧，捣鼓半天，运行不了，最后"><meta name="twitter:site" content="Hexo"><meta name="twitter:title" content="Docker Desktop安装和迁移"><meta name="twitter:card" content="summary"><meta name="keywords" content=""><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/my_blog_source/css/bootstrap.min.css"><link rel="stylesheet" href="/my_blog_source/css/font-awesome.min.css"><link rel="stylesheet" href="/my_blog_source/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/my_blog_source/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/my_blog_source/css/prism-line-numbers.css" type="text/css"></head><body><div class="container" id="stage"><div class="row"><div class="col-sm-3 col-xs-12 side-container invisible" id="side-bar"><div class="vertical-text site-title"><h3 class="site-title-small" tabindex="-1"><a class="a-title" href="/my_blog_source/">Infinity</a></h3><h1 class="site-title-large" tabindex="-1"><a class="a-title" href="/my_blog_source/">无限进步</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div class="site-title-links" id="site-nav"><ul><li><a href="/my_blog_source/">Home</a></li><li><a href="/my_blog_source/archives">Archive</a></li><li class="soc"><a href="https://github.com/Aimer779" target="_blank" rel="noopener noreferrer" aria-label="Github"><i class="fa fa-github">&nbsp;</i></a><a href="https://aimer779.github.io/my_blog_source/atom.xml" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2025&nbsp;<a target="_blank" href="https://aimer779.github.io/my_blog_source" rel="noopener noreferrer">Max</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div class="col-sm-9 col-xs-12 main-container invisible" id="main-container"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>Docker Desktop安装和迁移</a></p><p class="post-meta"><span class="date meta-item">Posted at&nbsp;2025-09-10</span></p><p class="post-abstract"><div class="toc">
+
+<!-- toc -->
+
+<ul>
+<li><a href="#xia-zai">下载</a></li>
+<li><a href="#zhun-bei-gong-zuo">准备工作</a><ul>
+<li><a href="#qi-yong-wsl2-he-xu-ni-hua-ping-tai">启用 WSL2和虚拟化平台</a></li>
+</ul>
+</li>
+<li><a href="#an-zhuang-he-pei-zhi">安装和配置</a><ul>
+<li><a href="#an-zhuang">安装</a></li>
+<li><a href="#pei-zhi-guo-nei-jing-xiang-yuan">配置国内镜像源</a></li>
+</ul>
+</li>
+<li><a href="#yan-zheng-zheng-chang-shi-yong">验证正常使用</a></li>
+<li><a href="#shu-ju-qian-yi">数据迁移</a></li>
+<li><a href="#qi-ta-wen-ti">其他问题</a></li>
+</ul>
+<!-- tocstop -->
+
+</div>
+
+<h2><span id="xia-zai">下载</span></h2><p>在国内Docker Desktop 官方安装包下载速度缓慢，国内镜像站或一些网盘中的安装包并不是最新版本，踩坑下了一个镜像站的安装包版本太旧，捣鼓半天，运行不了，最后去官网下了最新版，慢就慢吧，起码能用<br>如果你的处理器是Intel &#x2F; AMD 的 就下 <strong>Download for Windows - AMD64</strong><br>大概500多MB<br>官方链接：<strong><a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">https://www.docker.com/products/docker-desktop/</a></strong><br>官方文档：<strong><a target="_blank" rel="noopener" href="https://docs.docker.com/">https://docs.docker.com/</a></strong></p>
+<h2><span id="zhun-bei-gong-zuo">准备工作</span></h2><h3><span id="qi-yong-wsl2-he-xu-ni-hua-ping-tai">启用 WSL2和虚拟化平台</span></h3><ol>
 <li><strong>以管理员身份</strong>运行<code>powershell</code><br>先看看有没有启用下面2个功能: <code>WSL2</code> 和<code>虚拟化平台</code></li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 1. 查询“适用于 Linux 的 Windows 子系统”</span><br><span class="line">Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux | Select FeatureName, State</span><br><span class="line"></span><br><span class="line"># 2. 查询“虚拟机平台”（WSL2 依赖的核心虚拟化组件）</span><br><span class="line">Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform | Select FeatureName, State</span><br></pre></td></tr></table></figure>
@@ -23,11 +82,11 @@
 <li>可以在cmd中直接输入<code>wsl</code>,回车打开，第一次使用需要设置账号和密码（密码输入时看不见）</li>
 <li>也可以在开始中选择WSL或Ubuntu，点击后打开使用</li>
 </ul>
-<h1 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<h2><span id="an-zhuang-he-pei-zhi">安装和配置</span></h2><h3><span id="an-zhuang">安装</span></h3><ol>
 <li>双击安装包下载，选不了安装路径，<strong>确保</strong>选中以下选项<br><code>Install required Windows componenets for WSL2</code><br>2025&#x2F;9&#x2F;10 我装的最新版好像没有这个选项，点击OK后能正常使用<br>接下来会从网络上安装一些资源，等页面出现<code>Close</code>,点击关闭程序</li>
 <li>从<code>开始</code>中打开Docker Desktop, <code>Accept</code>协议条款<br>会出现弹窗显示<code>Docker is starting</code></li>
 </ol>
-<h2 id="配置国内镜像源"><a href="#配置国内镜像源" class="headerlink" title="配置国内镜像源"></a>配置国内镜像源</h2><p>为了解决拉取镜像慢的问题</p>
+<h3><span id="pei-zhi-guo-nei-jing-xiang-yuan">配置国内镜像源</span></h3><p>为了解决拉取镜像慢的问题</p>
 <ol>
 <li><p>打开 Docker Desktop → 点击右上角设置图标 ⚙️ → 选择 <strong>Docker Engine</strong></p>
 </li>
@@ -37,11 +96,11 @@
 <li><p>点击 <strong>Apply &amp; Restart</strong> 重启 Docker 生效</p>
 </li>
 </ol>
-<h1 id="验证正常使用"><a href="#验证正常使用" class="headerlink" title="验证正常使用"></a>验证正常使用</h1><p><code>cmd</code>或<code>Ubuntu</code>中输入：</p>
+<h2><span id="yan-zheng-zheng-chang-shi-yong">验证正常使用</span></h2><p><code>cmd</code>或<code>Ubuntu</code>中输入：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
 
 <p>看到<code>hello from docker</code>等信息说明Docker Desktop 正常运行了<br>如果看到了，真要恭喜你，这一路真是不容易！</p>
-<h1 id="数据迁移"><a href="#数据迁移" class="headerlink" title="数据迁移"></a>数据迁移</h1><p>Docker Desktop 默认安装在C盘，但是C盘空间常常不够用，所以要把数据迁移到其他盘中，迁移前记得对数据进行备份<br>使用<code>WSL</code>指令进行迁移</p>
+<h2><span id="shu-ju-qian-yi">数据迁移</span></h2><p>Docker Desktop 默认安装在C盘，但是C盘空间常常不够用，所以要把数据迁移到其他盘中，迁移前记得对数据进行备份<br>使用<code>WSL</code>指令进行迁移</p>
 <ol>
 <li>停掉WSL并检查状态<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wsl --shutdown</span><br><span class="line">wsl -l -v                 # 确保 docker-desktop 和 docker-desktop-data 状态都是Stopped</span><br></pre></td></tr></table></figure></li>
 <li>导出子系统（4.30版本后运行wsl -l -v只显示docker-desktop,此版本之后把docker-desktop和docker-desktop-data进行了合并）<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --export docker-desktop D:\DockerWSL\docker-desktop.tar</span><br></pre></td></tr></table></figure></li>
@@ -50,7 +109,7 @@
 <li>在docker desktop 中 settings 的 Resources 中 更改Disk image location 的路径，Apply 后重启</li>
 <li>检查数据是否迁移成功<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker version </span><br><span class="line">docker images --format &quot;table &#123;&#123;.Repository&#125;&#125;:&#123;&#123;.Tag&#125;&#125;\t&#123;&#123;.ID&#125;&#125;\t&#123;&#123;.Size&#125;&#125;&quot;</span><br><span class="line">docker volume ls</span><br><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h1 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h1><ol>
+<h2><span id="qi-ta-wen-ti">其他问题</span></h2><ol>
 <li>Docker Desktop 启动WSL2后端失效<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 重启WSL2系统</span><br><span class="line">wsl --shutdown</span><br></pre></td></tr></table></figure>
 重新打开Docker Desktop,查看是否能正常使用<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 清理并重建 Docker 发行版</span><br><span class="line">wsl --unregister docker-desktop</span><br></pre></td></tr></table></figure></li>
 </ol>
