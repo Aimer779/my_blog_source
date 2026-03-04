@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author"><title>AI 辅助编程经验：把“抽卡”变成“可控产能” · Hexo</title><meta name="description" content="1. 先把心态摆正：LLM 更像补全器，不是推理器
+2. 最关键的变量：高质量上下文 + 明确验收
+3. 推荐工作流：先 Plan 再 Execute（不要一上来就让它开写）
+4. 让项目“自描述”：把隐性知识显性化
+4.1 全局规范文档（一个就够，别写太多）
+4.2 分形文档（懒加载上下文）
+4."><meta name="og:description" content="1. 先把心态摆正：LLM 更像补全器，不是推理器
+2. 最关键的变量：高质量上下文 + 明确验收
+3. 推荐工作流：先 Plan 再 Execute（不要一上来就让它开写）
+4. 让项目“自描述”：把隐性知识显性化
+4.1 全局规范文档（一个就够，别写太多）
+4.2 分形文档（懒加载上下文）
+4."><meta name="twitter:site" content="Hexo"><meta name="twitter:title" content="AI 辅助编程经验：把“抽卡”变成“可控产能”"><meta name="twitter:card" content="summary"><meta name="keywords" content=""><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/my_blog_source/css/bootstrap.min.css"><link rel="stylesheet" href="/my_blog_source/css/font-awesome.min.css"><link rel="stylesheet" href="/my_blog_source/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/my_blog_source/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/my_blog_source/css/prism-line-numbers.css" type="text/css"></head><body><div class="container" id="stage"><div class="row"><div class="col-sm-3 col-xs-12 side-container invisible" id="side-bar"><div class="vertical-text site-title"><h3 class="site-title-small" tabindex="-1"><a class="a-title" href="/my_blog_source/">Infinity</a></h3><h1 class="site-title-large" tabindex="-1"><a class="a-title" href="/my_blog_source/">无限进步</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div class="site-title-links" id="site-nav"><ul><li><a href="/my_blog_source/">Home</a></li><li><a href="/my_blog_source/archives">Archive</a></li><li class="soc"><a href="https://github.com/Aimer779" target="_blank" rel="noopener noreferrer" aria-label="Github"><i class="fa fa-github">&nbsp;</i></a><a href="https://aimer779.github.io/my_blog_source/atom.xml" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2026&nbsp;<a target="_blank" href="https://aimer779.github.io/my_blog_source" rel="noopener noreferrer">Max</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div class="col-sm-9 col-xs-12 main-container invisible" id="main-container"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>AI 辅助编程经验：把“抽卡”变成“可控产能”</a></p><p class="post-meta"><span class="date meta-item">Posted at&nbsp;2026-03-04</span></p><p class="post-abstract"><div class="toc">
+
+<!-- toc -->
+
+<ul>
+<li><a href="#1-xian-ba-xin-tai-bai-zheng-llm-geng-xiang-bu-quan-qi-bu-shi-tui-li-qi">1. 先把心态摆正：LLM 更像补全器，不是推理器</a></li>
+<li><a href="#2-zui-guan-jian-de-bian-liang-gao-zhi-liang-shang-xia-wen-ming-que-yan-shou">2. 最关键的变量：高质量上下文 + 明确验收</a></li>
+<li><a href="#3-tui-jian-gong-zuo-liu-xian-plan-zai-execute-bu-yao-yi-shang-lai-jiu-rang-ta-kai-xie">3. 推荐工作流：先 Plan 再 Execute（不要一上来就让它开写）</a></li>
+<li><a href="#4-rang-xiang-mu-zi-miao-shu-ba-yin-xing-zhi-shi-xian-xing-hua">4. 让项目“自描述”：把隐性知识显性化</a><ul>
+<li><a href="#4-1-quan-ju-gui-fan-wen-dang-yi-ge-jiu-gou-bie-xie-tai-duo">4.1 全局规范文档（一个就够，别写太多）</a></li>
+<li><a href="#4-2-fen-xing-wen-dang-lan-jia-zai-shang-xia-wen">4.2 分形文档（懒加载上下文）</a></li>
+<li><a href="#4-3-yuan-ma-tou-bu-san-xing-zhu-shi-input-output-pos">4.3 源码头部三行注释：INPUT &#x2F; OUTPUT &#x2F; POS</a></li>
+</ul>
+</li>
+<li><a href="#5-kong-zhi-shang-xia-wen-yi-ge-session-zhi-zuo-yi-jian-shi">5. 控制上下文：一个 session 只做一件事</a></li>
+<li><a href="#6-an-quan-di-yi-ge-chi-huan-jing-zui-xiao-quan-xian">6. 安全第一：隔离环境 + 最小权限</a></li>
+<li><a href="#7-yong-ce-shi-yan-shou-harness-ti-dai-ren-rou-code-review">7. 用测试&#x2F;验收 harness 替代人肉 Code Review</a></li>
+<li><a href="#8-ba-chang-yong-tao-lu-chen-dian-cheng-skill-ba-tan-suo-jiao-gei-zi-zhi-neng-ti">8. 把常用套路沉淀成 Skill，把探索交给子智能体</a></li>
+<li><a href="#9-ji-lu-jue-ce-yuan-yin-adr-gei-wei-lai-de-ni-he-ai-yi-ge-mao-dian">9. 记录决策原因（ADR）：给未来的你和 AI 一个锚点</a></li>
+<li><a href="#10-zui-hou-zong-jie-ba-ai-dang-gao-su-shi-xi-sheng-bu-shi-quan-zi-dong-jiao-fu-ji-qi">10. 最后总结：把 AI 当“高速实习生”，不是“全自动交付机器”</a></li>
+</ul>
+<!-- tocstop -->
+
+</div>
+
+<p>很多人第一次用 AI 写代码，会经历同一个循环：</p>
+<ul>
+<li>一开始惊艳：几句话就能跑起来。</li>
+<li>接着失望：同一个问题反复改，越改越乱。</li>
+<li>最后分化：有人把 AI 当玩具，有人把它变成生产力。</li>
+</ul>
+<p>我的结论很简单：<strong>AI 写代码的上限，不在模型有多强，而在你把它放进什么样的工程系统里。</strong></p>
+<p>这篇文章我想分享一套我自己更偏“工程化”的用法：目标是让 AI 从“概率抽卡机”，变成“有护栏、有验收、可迭代”的交付流水线。</p>
+<hr>
+<h2><span id="1-xian-ba-xin-tai-bai-zheng-llm-geng-xiang-bu-quan-qi-bu-shi-tui-li-qi">1. 先把心态摆正：LLM 更像补全器，不是推理器</span></h2><p>LLM 的核心机制是根据上下文预测下一个 token，它可以表现得很像“在推理”，但多数时候它是在做高概率补全。</p>
+<p>所以你会看到这些现象：</p>
+<ul>
+<li>同一段需求，换个表述，结果差很多。</li>
+<li>它能写出看起来很对的代码，但细节一跑就爆。</li>
+<li>它会非常自信地胡说八道（尤其在上下文不足时）。</li>
+</ul>
+<p>这不是“你不会提问”，而是模型的工作方式决定了：<strong>默认输出并不稳定</strong>。</p>
+<p>因此，AI 对使用者的提升是“乘法关系”：</p>
+<ul>
+<li>你本来就能做正确的架构权衡、能兜底、能验收 → AI 放大你的产能。</li>
+<li>你对业务&#x2F;工程不熟，无法判断对错 → AI 放大混乱。</li>
+</ul>
+<p>把这点想清楚，后面的策略才有意义。</p>
+<hr>
+<h2><span id="2-zui-guan-jian-de-bian-liang-gao-zhi-liang-shang-xia-wen-ming-que-yan-shou">2. 最关键的变量：高质量上下文 + 明确验收</span></h2><p>AI 不是“知道一切”，它只是在你给的上下文里做局部最优补全。</p>
+<p>所以真正的秘诀不是“问得更花”，而是：</p>
+<ul>
+<li><strong>给它足够的上下文</strong>（业务边界、约束、现有实现、依赖关系）。</li>
+<li><strong>把验收标准写出来</strong>（什么算完成，什么算失败）。</li>
+</ul>
+<p>一句很俗但很真诚的话：</p>
+<blockquote>
+<p>你不写验收标准，AI 就会自己发明一个。</p>
+</blockquote>
+<p>通常它发明出来的标准就是：代码看起来像那么回事。</p>
+<hr>
+<h2><span id="3-tui-jian-gong-zuo-liu-xian-plan-zai-execute-bu-yao-yi-shang-lai-jiu-rang-ta-kai-xie">3. 推荐工作流：先 Plan 再 Execute（不要一上来就让它开写）</span></h2><p>我自己基本固定成一个节奏：</p>
+<ol>
+<li><strong>先让 AI 输出计划</strong>（Plan）</li>
+</ol>
+<ul>
+<li>拆成原子任务（涉及哪些文件&#x2F;函数）</li>
+<li>明确输入输出（I&#x2F;O）</li>
+<li>写验收标准（测试点&#x2F;接口契约&#x2F;边界条件）</li>
+</ul>
+<ol start="2">
+<li><p><strong>我确认计划没问题</strong>（特别是边界与 trade-off）</p>
+</li>
+<li><p><strong>再让 AI 按计划逐步执行</strong>（Execute）</p>
+</li>
+</ol>
+<ul>
+<li>每次只改一小段</li>
+<li>改完立刻跑测试 &#x2F; lint &#x2F; 类型检查</li>
+<li>失败就回滚或修复，不让错误扩散</li>
+</ul>
+<p>这样做的好处是：你把“探索空间”先收敛了，AI 的输出会稳定很多。</p>
+<hr>
+<h2><span id="4-rang-xiang-mu-zi-miao-shu-ba-yin-xing-zhi-shi-xian-xing-hua">4. 让项目“自描述”：把隐性知识显性化</span></h2><p>AI 最大的坑之一是：<strong>老项目有大量隐性约束</strong>。</p>
+<p>比如：</p>
+<ul>
+<li>改了 A 字段要同步更新 B 表。</li>
+<li>某个字段必须先校验库存才能写。</li>
+<li>某段逻辑历史上踩过坑，所以才这么写（但代码里没有原因）。</li>
+</ul>
+<p>人类靠经验记住了，AI 看不到，就会在重构时把这些约束全抹掉。</p>
+<p>我的做法是让项目尽量“自描述”，把隐性知识写成 AI 能读懂的东西。</p>
+<h3><span id="4-1-quan-ju-gui-fan-wen-dang-yi-ge-jiu-gou-bie-xie-tai-duo">4.1 全局规范文档（一个就够，别写太多）</span></h3><p>常见文件名例如：<code>AGENTS.md</code> &#x2F; <code>CLAUDE.md</code> &#x2F; <code>project.md</code> &#x2F; <code>.cursorrules</code>。</p>
+<p>内容建议包含：</p>
+<ul>
+<li>项目概览：业务目标、核心价值、目标用户</li>
+<li>技术栈：语言&#x2F;框架&#x2F;版本（非常重要，别让 AI 用错语法）</li>
+<li>架构约定：模块划分、依赖关系、目录结构</li>
+<li>关键约束：API 路由前缀、错误处理、认证机制、命名规范</li>
+<li>开发规范：lint&#x2F;formatter、git 提交规范、日志格式、测试要求</li>
+</ul>
+<p>原则：<strong>够用就行，写多了反而过期。</strong></p>
+<h3><span id="4-2-fen-xing-wen-dang-lan-jia-zai-shang-xia-wen">4.2 分形文档（懒加载上下文）</span></h3><p>如果你用的 AI 工具会在搜索&#x2F;进入目录时自动读取目录下的说明文件，那就可以利用它：</p>
+<ul>
+<li>每个业务模块目录放一个 <code>CLAUDE.md</code></li>
+<li>里面只写这几件事：<ul>
+<li>这个模块负责什么&#x2F;不负责什么（边界）</li>
+<li>关键类&#x2F;关键入口</li>
+<li>业务规则与约束</li>
+<li>常见修改场景（新增&#x2F;改动怎么做）</li>
+</ul>
+</li>
+</ul>
+<p>这比“全局大文档”靠谱，因为模块文档离代码更近，更不容易过期。</p>
+<h3><span id="4-3-yuan-ma-tou-bu-san-xing-zhu-shi-input-x2f-output-x2f-pos">4.3 源码头部三行注释：INPUT &#x2F; OUTPUT &#x2F; POS</span></h3><p>这是我非常推荐的一个小技巧：</p>
+<ul>
+<li><strong>INPUT</strong>：依赖什么（外部服务&#x2F;表&#x2F;配置&#x2F;上游调用）</li>
+<li><strong>OUTPUT</strong>：提供什么（对外接口&#x2F;返回结构&#x2F;副作用）</li>
+<li><strong>POS</strong>：在系统中的地位（模块定位）</li>
+</ul>
+<p>因为 AI 读文件通常是从头开始读，你把语义放在第一屏，它就不容易误解。</p>
+<hr>
+<h2><span id="5-kong-zhi-shang-xia-wen-yi-ge-session-zhi-zuo-yi-jian-shi">5. 控制上下文：一个 session 只做一件事</span></h2><p>AI 写代码质量下降，很多时候不是它“变笨了”，而是：</p>
+<ul>
+<li>上下文太长，关键约束被挤掉</li>
+<li>历史对话里混了太多目标，导致它目标漂移</li>
+</ul>
+<p>所以我会刻意：</p>
+<ul>
+<li>一个会话只做一个功能&#x2F;一个任务</li>
+<li>做完就开新会话</li>
+<li>旧会话里重要结论要沉淀到文档&#x2F;规则里，而不是靠“记得住”</li>
+</ul>
+<p>有点像写代码别靠 IDE 缓存：<strong>重要信息应该落盘</strong>。</p>
+<hr>
+<h2><span id="6-an-quan-di-yi-ge-chi-huan-jing-zui-xiao-quan-xian">6. 安全第一：隔离环境 + 最小权限</span></h2><p>AI 的误操作不是“会不会发生”，而是“什么时候发生”。</p>
+<p>建议：</p>
+<ul>
+<li>能在 sandbox &#x2F; 测试库跑的，不要在生产库跑</li>
+<li>给 AI 的权限越小越好（尤其是删除、迁移、批量脚本）</li>
+<li>任何破坏性操作都需要人工二次确认</li>
+</ul>
+<p>这不是不信任 AI，这是对系统负责。</p>
+<hr>
+<h2><span id="7-yong-ce-shi-x2f-yan-shou-harness-ti-dai-ren-rou-code-review">7. 用测试&#x2F;验收 harness 替代人肉 Code Review</span></h2><p>AI 可以在很短时间生成海量代码，人类很难像以前一样逐行 review。</p>
+<p>所以要把质量控制从“人工读代码”迁移到“自动验收”：</p>
+<ul>
+<li>清晰的验收标准（接口契约、边界条件、性能指标）</li>
+<li>完整的测试体系（单测&#x2F;集成测试&#x2F;回归测试）</li>
+<li>尽可能让 AI 自己写测试，并让测试约束它</li>
+</ul>
+<p>最理想的状态是：</p>
+<blockquote>
+<p>让 AI 在 harness 里奔跑，而不是在生产里裸奔。</p>
+</blockquote>
+<hr>
+<h2><span id="8-ba-chang-yong-tao-lu-chen-dian-cheng-skill-ba-tan-suo-jiao-gei-zi-zhi-neng-ti">8. 把常用套路沉淀成 Skill，把探索交给子智能体</span></h2><p>当你发现自己反复对 AI 说同样的规则、同样的纠错、同样的命令，其实就说明：这应该被沉淀。</p>
+<ul>
+<li>常用提示词、规则、纠错流程 → 沉淀成 Skill（复用）</li>
+<li>大范围搜索、读文档、对比方案 → 交给子智能体（省主上下文）</li>
+</ul>
+<p>主会话尽量只保留“决策所需的信息”，不背无关的噪音。</p>
+<hr>
+<h2><span id="9-ji-lu-jue-ce-yuan-yin-adr-gei-wei-lai-de-ni-he-ai-yi-ge-mao-dian">9. 记录决策原因（ADR）：给未来的你和 AI 一个锚点</span></h2><p>很多“看起来很丑”的实现，其实是历史约束下的最优解。</p>
+<p>如果不记录原因，AI 或者后来的同事在重构时很容易把它“优化掉”，然后踩回老坑。</p>
+<p>所以我建议：</p>
+<ul>
+<li>关键架构决策写 ADR</li>
+<li>写清楚：背景、可选方案、最终选择、取舍、风险、回滚策略</li>
+</ul>
+<p>这类信息属于高价值上下文，能显著减少后续抽卡。</p>
+<hr>
+<h2><span id="10-zui-hou-zong-jie-ba-ai-dang-gao-su-shi-xi-sheng-bu-shi-quan-zi-dong-jiao-fu-ji-qi">10. 最后总结：把 AI 当“高速实习生”，不是“全自动交付机器”</span></h2><p>我现在更愿意把 AI 理解成：</p>
+<ul>
+<li>产能极高</li>
+<li>速度极快</li>
+<li>但默认不可靠</li>
+</ul>
+<p>你要做的是提供：</p>
+<ul>
+<li>上下文（让它知道现在是什么系统）</li>
+<li>约束（让它别乱来）</li>
+<li>验收（让它知道什么叫完成）</li>
+<li>反馈闭环（错了就沉淀成规则&#x2F;文档&#x2F;测试）</li>
+</ul>
+<p>当这些工程条件具备以后，AI 的价值会非常稳定：它不只是写代码，而是帮你<strong>批量生成实现、批量探索方案、批量补齐测试、批量做迁移与重构的脏活累活</strong>。</p>
+<p>——</p>
+<p>如果你也有自己的 AI Coding 流程&#x2F;踩坑经验，欢迎交流。我更感兴趣的是：哪些护栏真的能让团队长期稳定提效，而不是短期爽一把。</p>
+</p></div><div class="share"><span>Share</span>&nbsp;<span class="soc"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></span><span class="soc"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></span><span class="soc"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/home?status=https://aimer779.github.io/my_blog_source/2026/03/04/AI 辅助编程经验：把抽卡变成可控产能/%20Hexo%20AI 辅助编程经验：把“抽卡”变成“可控产能”"></a></span></div><div class="pagination"><p class="clearfix"><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/my_blog_source/2025/09/10/%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E6%B5%8B%E8%AF%95/" title="图片上传测试">Next post: 图片上传测试&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2026&nbsp;<a target="_blank" href="https://aimer779.github.io/my_blog_source" rel="noopener noreferrer">Max</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/my_blog_source/js/jquery-3.1.0.min.js"></script><script src="/my_blog_source/js/bootstrap.min.js"></script><script src="/my_blog_source/js/jquery-migrate-1.2.1.min.js"></script><script src="/my_blog_source/js/jquery.appear.js"></script><script src="/my_blog_source/js/google-analytics.js"></script><script src="/my_blog_source/js/typography.js"></script></body></html>
